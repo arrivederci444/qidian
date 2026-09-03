@@ -496,28 +496,15 @@ body {
   border-radius: 18px;
   box-shadow: 0 5px 0 rgba(43,35,32,.85);
   cursor: pointer;
-  --rot: 0deg;
-  animation: chipBob 2.4s ease-in-out infinite;
-  animation-delay: var(--i, 0s);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .12s, box-shadow .12s;
 }
-@keyframes chipBob {
-  0%, 100% { transform: translateY(0) rotate(var(--rot)); }
-  50% { transform: translateY(-3px) rotate(var(--rot)); }
-}
-#slide2 .chip:nth-child(1) { --i: 0s; }
-#slide2 .chip:nth-child(2) { --i: .25s; }
-#slide2 .chip:nth-child(3) { --i: .5s; }
-#slide2 .chip:nth-child(4) { --i: .75s; }
-#slide2 .chip:nth-child(5) { --i: 1s; }
-#slide2 .chip:nth-child(6) { --i: 1.25s; }
-#slide2 .chip:nth-child(7) { --i: 1.5s; }
-#slide2 .chip:nth-child(8) { --i: 1.75s; }
 @media (hover: hover) {
-  #slide2 .chip:hover { animation: none; transform: translateY(-2px) rotate(var(--rot)); }
+  #slide2 .chip:hover { transform: translateY(-2px); box-shadow: 0 7px 0 rgba(43,35,32,.85); }
 }
 #slide2 .chip:active {
-  animation: none;
-  transform: translateY(2px) rotate(var(--rot));
+  transform: translateY(2px);
   box-shadow: 0 2px 0 rgba(43,35,32,.85);
 }
 /* 右上角的箭头徽章，明确“点进去有东西看” */
