@@ -225,4 +225,67 @@
       qrZoom.classList.remove("open");
     });
   }
+
+  /* ---------- 职位详情弹层：点卡片直接弹出，不跳第二个页面 ---------- */
+  var roleModal = document.getElementById("roleModal");
+  var roleBody = document.getElementById("roleBoxBody");
+  var roleTabs = document.getElementById("roleTabs");
+  var roleMeta = [
+    { r: "主唱", e: "🎤" },
+    { r: "吉他", e: "🎸" },
+    { r: "贝斯", e: "🎼" },
+    { r: "鼓手", e: "🥁" },
+    { r: "键盘", e: "🎹" },
+    { r: "其他乐器", e: "🎷" },
+    { r: "写词写曲", e: "✍️" },
+    { r: "摄影", e: "📷" },
+    { r: "tips", e: "💡", label: "小建议" }
+  ];
+  if (roleModal && roleBody) {
+    roleMeta.forEach(function (m) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "role-tab";
+      b.setAttribute("data-role", m.r);
+      b.textContent = (m.e || "") + " " + (m.label || m.r);
+      roleTabs.appendChild(b);
+    });
+
+    function showRole(r) {
+      roleBody.querySelectorAll(".role-detail-block").forEach(function (b) {
+        b.classList.toggle("show", b.getAttribute("data-role") === r);
+      });
+      roleTabs.querySelectorAll(".role-tab").forEach(function (t) {
+        t.classList.toggle("on", t.getAttribute("data-role") === r);
+      });
+      if (roleBody.scrollTop) roleBody.scrollTop = 0;
+    }
+    function openRole(r) {
+      roleModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      showRole(r);
+    }
+    function closeRole() {
+      roleModal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".chip").forEach(function (c) {
+      c.addEventListener("click", function () {
+        openRole(c.getAttribute("data-role"));
+      });
+    });
+    roleTabs.addEventListener("click", function (e) {
+      var t = e.target.closest(".role-tab");
+      if (t) showRole(t.getAttribute("data-role"));
+    });
+    document.getElementById("roleClose").addEventListener("click", closeRole);
+    roleModal.addEventListener("click", function (e) {
+      if (e.target === roleModal) closeRole();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (!roleModal.classList.contains("open")) return;
+      if (e.key === "Escape") closeRole();
+    });
+  }
 })();
