@@ -4,6 +4,7 @@
 create table public.signups (
   id uuid primary key default gen_random_uuid(),
   name text not null,
+  gender text not null default '未知',
   student_id text not null,
   major text not null,
   phone text not null,
@@ -30,3 +31,6 @@ create policy "允许匿名提交报名" on public.signups
   for insert
   to anon
   with check (true);
+
+-- ⚠️ 如果你的报名表之前已经建过（没有 gender 这一列），请在控制台单独执行下面这一行补列：
+alter table public.signups add column if not exists gender text not null default '未知';

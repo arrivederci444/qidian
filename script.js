@@ -36,13 +36,15 @@
   var form = document.getElementById("joinForm");
   var hint = document.getElementById("formHint");
   if (form) {
-    form.querySelectorAll('input[name="group"]').forEach(function (r) {
-      r.addEventListener("change", function () {
-        form.querySelectorAll(".group-opt").forEach(function (o) {
-          o.classList.remove("checked");
+    form.querySelectorAll(".group-options").forEach(function (box) {
+      box.querySelectorAll('input[type="radio"]').forEach(function (r) {
+        r.addEventListener("change", function () {
+          box.querySelectorAll(".group-opt").forEach(function (o) {
+            o.classList.remove("checked");
+          });
+          var lab = r.closest(".group-opt");
+          if (lab) lab.classList.add("checked");
         });
-        var lab = r.closest(".group-opt");
-        if (lab) lab.classList.add("checked");
       });
     });
     form.addEventListener("submit", function (e) {
@@ -56,6 +58,8 @@
       var remarks = form.querySelector('[name="remarks"]').value.trim();
       var grp = form.querySelector('input[name="group"]:checked');
       var group = grp ? grp.value : "";
+      var gnd = form.querySelector('[name="gender"]');
+      var gender = gnd ? gnd.value : "";
 
       function fail(msg) {
         if (hint) {
@@ -76,6 +80,18 @@
         hint.style.color = "var(--yellow)";
       }
 
+      var payload = {
+        name: name,
+        student_id: studentId,
+        major: major,
+        phone: phone,
+        position: position,
+        instruments: instruments,
+        group: group,
+        remarks: remarks
+      };
+      if (gender) payload.gender = gender;
+
       fetch(SUPABASE_URL + "/rest/v1/signups", {
         method: "POST",
         headers: {
@@ -84,16 +100,7 @@
           "Content-Type": "application/json",
           "Prefer": "return=minimal"
         },
-        body: JSON.stringify({
-          name: name,
-          student_id: studentId,
-          major: major,
-          phone: phone,
-          position: position,
-          instruments: instruments,
-          group: group,
-          remarks: remarks
-        })
+        body: JSON.stringify(payload)
       })
       .then(function (res) {
         if (res.ok) {

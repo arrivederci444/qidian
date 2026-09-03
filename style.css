@@ -455,13 +455,15 @@ body {
 .facts li:nth-child(4) { transform: rotate(0.8deg); }
 .facts .emoji { font-size: 22px; }
 
+#slide2 .slide-title { margin-bottom: 12px; }
 #slide2 .click-hint {
-  display: inline-block;
-  font-size: 16px;
+  display: block;
+  margin: -2px 0 20px;
+  font-size: 15px;
   font-weight: 800;
   letter-spacing: 1px;
-  color: rgba(255,255,255,.75);
-  margin-top: 6px;
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 2px 10px rgba(0,0,0,.35);
 }
 #slide2 .click-arrow {
   display: inline-block;
@@ -471,65 +473,79 @@ body {
   margin-left: 2px;
 }
 .chips {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin: 6px 0 24px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 2px 0 26px;
 }
 
-/* ---------- 岗位 chips ---------- */
-.chip {
-  font-size: 16px;
-  font-weight: 900;
-  background: var(--card);
-  border: 2.5px solid var(--ink);
-  border-radius: 999px;
-  padding: 10px 20px;
-  box-shadow: 0 4px 0 rgba(43,35,32,.85);
-  cursor: pointer;
-  transition: transform .12s;
-  text-decoration: none;
-  color: var(--ink);
-}
-.chip:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(43,35,32,.85); }
-
-/* 第三页职位：加箭头，看起来更像可点击 */
+/* ---------- 岗位卡片（做成“能点的按钮”的样子） ---------- */
 #slide2 .chip {
   position: relative;
-  padding-right: 34px;
-  border-color: rgba(43,35,32,.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 15px 42px 15px 10px;
+  background: var(--card);
+  border: 2.5px solid var(--ink);
+  border-radius: 18px;
+  box-shadow: 0 5px 0 rgba(43,35,32,.85);
+  cursor: pointer;
+  --rot: 0deg;
+  animation: chipBob 2.4s ease-in-out infinite;
+  animation-delay: var(--i, 0s);
 }
+@keyframes chipBob {
+  0%, 100% { transform: translateY(0) rotate(var(--rot)); }
+  50% { transform: translateY(-3px) rotate(var(--rot)); }
+}
+#slide2 .chip:nth-child(1) { --i: 0s; }
+#slide2 .chip:nth-child(2) { --i: .25s; }
+#slide2 .chip:nth-child(3) { --i: .5s; }
+#slide2 .chip:nth-child(4) { --i: .75s; }
+#slide2 .chip:nth-child(5) { --i: 1s; }
+#slide2 .chip:nth-child(6) { --i: 1.25s; }
+#slide2 .chip:nth-child(7) { --i: 1.5s; }
+#slide2 .chip:nth-child(8) { --i: 1.75s; }
+@media (hover: hover) {
+  #slide2 .chip:hover { animation: none; transform: translateY(-2px) rotate(var(--rot)); }
+}
+#slide2 .chip:active {
+  animation: none;
+  transform: translateY(2px) rotate(var(--rot));
+  box-shadow: 0 2px 0 rgba(43,35,32,.85);
+}
+/* 右上角的箭头徽章，明确“点进去有东西看” */
 #slide2 .chip::after {
   content: "›";
   position: absolute;
-  right: 14px;
+  right: 10px;
   top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
+  margin-top: -11px;
+  width: 22px;
+  height: 22px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 17px;
   font-weight: 900;
-  color: var(--ink);
-  opacity: .5;
+  line-height: 22px;
+  text-align: center;
+  box-shadow: 0 2px 0 rgba(0,0,0,.25);
 }
-#slide2 .chip:hover {
-  box-shadow: 0 6px 0 rgba(43,35,32,.85);
-  transform: translateY(-1px);
-}
-.chip:nth-child(1) { background: #ffe1d3; }
-.chip:nth-child(2) { background: #d8ecff; }
-.chip:nth-child(3) { background: #d9f7e8; }
-.chip:nth-child(4) { background: #ffe1e8; }
-.chip:nth-child(5) { background: #e9e0ff; }
-.chip:nth-child(6) { background: #fff3c4; }
-.chip:nth-child(7) { background: #d6ecff; }
-.chip:nth-child(8) { background: #ffe4c8; }
-
-.role-hint {
-  margin: -12px 0 22px;
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(255,255,255,.55);
-}
+#slide2 .chip:nth-child(1) { background: #ffe1d3; }
+#slide2 .chip:nth-child(2) { background: #d8ecff; }
+#slide2 .chip:nth-child(3) { background: #d9f7e8; }
+#slide2 .chip:nth-child(4) { background: #ffe1e8; }
+#slide2 .chip:nth-child(5) { background: #e9e0ff; }
+#slide2 .chip:nth-child(6) { background: #fff3c4; }
+#slide2 .chip:nth-child(7) { background: #d6ecff; }
+#slide2 .chip:nth-child(8) { background: #ffe4c8; }
 
 /* ---------- 职位详情页（外卖式布局） ---------- */
 .role-app {
@@ -766,6 +782,7 @@ body {
   font-weight: 700;
   color: rgba(43,35,32,.55);
 }
+
 .btn {
   border: 2.5px solid var(--ink);
   border-radius: 999px;

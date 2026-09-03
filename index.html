@@ -9,7 +9,7 @@
 <meta property="og:description" content="校园里的乐队，等你一起玩。原创、排练、演出，欢迎零基础的你。">
 <meta property="og:image" content="https://arrivederci444.github.io/qidian/picture/DSC_8650_cover.jpg">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="style.css?v=20">
+<link rel="stylesheet" href="style.css?v=21">
 <link rel="preload" as="image" href="picture/DSC_8650_cover.webp?v=5">
 <link rel="preload" as="image" href="picture/865eef07159ce5806c21fc6494d85a21_s.webp">
 <link rel="preload" as="image" href="picture/547a4ffb58e353ded517ff76b41d2df9.webp">
@@ -71,7 +71,8 @@
   <section class="slide" id="slide2">
     <div class="slide-inner">
       <p class="kicker">欢迎入队</p>
-      <h2 class="slide-title">来玩点什么？<br><span class="click-hint">点击进来看看 <span class="click-arrow">↓</span></span></h2>
+      <h2 class="slide-title">来玩点什么？</h2>
+      <p class="click-hint">8 个职位都能点，点开看「要干嘛 + 怎么考核」<span class="click-arrow">↓</span></p>
       <div class="chips">
         <a class="chip" href="role.html?role=主唱">🎤 主唱</a>
         <a class="chip" href="role.html?role=吉他">🎸 吉他</a>
@@ -82,9 +83,8 @@
         <a class="chip" href="role.html?role=写词写曲">✍️ 写词写曲</a>
         <a class="chip" href="role.html?role=摄影">📷 摄影</a>
       </div>
-      <p class="role-hint">👇 点职位，看看详情和考核标准</p>
       <div class="card">
-        <p>不需要很厉害，愿意常来就行。<br>抱着玩的心态，认真对待每一个音符<br>来这里，找到属于自己的个性</p>
+        <p>不需要很厉害，愿意常来就行。<br>点开上面的职位看看——<br>哪个位置，正在等你来</p>
       </div>
     </div>
   </section>
@@ -109,6 +109,12 @@
         <h3>或者留个名，我们来找你</h3>
         <form id="joinForm">
           <input type="text" name="name" placeholder="名字" required>
+          <select name="gender">
+            <option value="" disabled selected>性别</option>
+            <option>男</option>
+            <option>女</option>
+            <option value="未知">未知（选这个直接淘汰并且丢给我们的男学姐处理）</option>
+          </select>
           <input type="text" name="student_id" placeholder="学号" pattern="202[0-9]{5}0[0-9]{3}" title="学号格式：202XXXXX0XXX" required>
           <input type="text" name="major" placeholder="专业" required>
           <input type="tel" name="phone" placeholder="手机号" required>
@@ -166,6 +172,6 @@
   <img id="qrZoomImg" src="" alt="二维码">
 </div>
 
-<script src="script.js?v=6"></script>
+<script src="script.js?v=8"></script>
 </body>
 </html>
